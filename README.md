@@ -49,15 +49,15 @@ curl --location --request DELETE 'localhost:8080/produto/remove/13'
 
 
 
-Exemple to create postgres table and use id with auto increment
+** Exemple to create postgres table and use id with auto increment
 
---usar a opção serial para a criação do
+ - usar a opção serial para a criação do
 CREATE TABLE Produto (
 id serial PRIMARY key,
 nome VARCHAR(255) NOT NULL    
 );
 
---consult all products
+ - consult all products
 select * from produto
 
 
