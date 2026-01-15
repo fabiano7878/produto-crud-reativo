@@ -9,7 +9,7 @@ Aplicação Java 21, Gradle, Quarkus reativo e integração com kafka
 - build and run with ./gradlew clean build
 - and finish in your command line into your IDE ./gradlew quarkusDev or start
 
-This app have the follows endpoints: curls to postman
+# This app have the follows endpoints: curls to postman
 
  - just msg: (POST)
 curl --location 'localhost:8080/produto/message' \ 
@@ -49,7 +49,7 @@ curl --location --request DELETE 'localhost:8080/produto/remove/13'
 
 
 
-** Exemple to create postgres table and use id with auto increment
+# Exemple to create postgres table and use id with auto increment
 
  - usar a opção serial para a criação do
 CREATE TABLE Produto (
@@ -60,6 +60,7 @@ nome VARCHAR(255) NOT NULL
  - consult all products
 select * from produto
 
+# conclusion
 
 I writhed this application for trainee and upgrade my skills.
 In my opnian about use this tech, i recommend, it´s so much easy to integrate and make work all.
