@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres-produto
+    environment:
+      POSTGRES_USER: kfka_produto
+      POSTGRES_PASSWORD: kfka-produto123
+      POSTGRES_DB: produto-kfka
+    ports:
+      - "5432:5432"
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+
+  kafka:
+      image: wurstmeister/kafka
+      container_name: kafka-produto
+      ports:
+        - "9092:9092"
+      environment:
+        KAFKA_ADVERTISED_HOST_NAME: localhost
+        KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+
+  init-kafka:
+   image: wurstmeister/kafka
+   depends_on:
+     - kafka
+   entrypoint: ['bin/sh', '-c' ]
+   command: | 
+     "
+      cd opt/kafka/bin
+      kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 1 --topic produto-nome
+     "
