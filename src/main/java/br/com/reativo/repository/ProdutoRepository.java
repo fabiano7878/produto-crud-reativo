@@ -68,4 +68,12 @@ public class ProdutoRepository {
                .execute(Tuple.of(id))
                .onItem().transform(rows -> rows.rowCount() > 0);
     }
+
+    public Uni<Boolean> updateById(PgPool pgPool, long id, Produto produto){
+        String sql = "UPDATE produto SET nome = $1 WHERE id = $2";
+        return pgPool.preparedQuery(sql)
+                .execute(Tuple.of(produto.nome(), id))
+                .onItem()
+                .transform(rows -> rows.rowCount() > 0);
+    }
 }

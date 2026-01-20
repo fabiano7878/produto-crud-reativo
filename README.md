@@ -1,5 +1,5 @@
 # produto-crud-reativo
-Aplicação Java 21, Gradle, Quarkus reativo e integração com kafka
+Aplicação Java 21, Gradle, Quarkus reativo e integração com kafka, postgres 
 
 # how to run
 
@@ -47,18 +47,6 @@ curl --location --request PATCH 'localhost:8080/produto/21' \
  - delete product: (DELETE)
 curl --location --request DELETE 'localhost:8080/produto/remove/13'
 
-
-
-# Exemple to create postgres table and use id with auto increment
-
- - usar a opção serial para a criação do
-CREATE TABLE Produto (
-id serial PRIMARY key,
-nome VARCHAR(255) NOT NULL    
-);
-
- - consult all products
-select * from produto
 
 # conclusion
 

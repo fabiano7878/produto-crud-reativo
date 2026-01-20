@@ -1,27 +1,97 @@
-'%Teste':
+# =========================================================
+# CONFIGURAÇÕES COMUNS (válidas para todos os profiles)
+# =========================================================
 quarkus:
+  application:
+    name: produto-crud-reativo
+
+  http:
+    port: 8080
+
+  log:
+    level: INFO
+
   datasource:
     db-kind: postgresql
     username: kfka_produto
     password: kfka-produto123
-    reactive:
-      url: postgresql://0.0.0.0:5432/produto-kfka
-kafka:
-  bootstrap:
-    servers: localhost:9092
-mp:
-  messaging:
-    # to kafka
-    outgoing:
-      produto-nome-out:
-        connector: smallrye-kafka
-        topic: produto-nome
-        value:
-           serializer: org.apache.kafka.common.serialization.StringSerializer
-    # from kafka
-    incoming:
-      produto-nome-in:
-        connector: smallrye-kafka
-        topic: produto-nome
-        value:
-          deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    devservices:
+      enabled: false
+
+
+# =========================================================
+# PROFILE: DEV (EXECUÇÃO LOCAL / INTELLIJ / QUARKUS DEV)
+# =========================================================
+'%dev':
+  quarkus:
+    datasource:
+      jdbc:
+        url: jdbc:postgresql://localhost:5432/produto-kfka
+
+      reactive:
+        url: postgresql://localhost:5432/produto-kfka
+        username: kfka_produto
+        password: kfka-produto123
+
+    flyway:
+      migrate-at-start: true
+      locations: db/migration
+
+  kafka:
+    bootstrap:
+      servers: localhost:9092
+
+  mp:
+    messaging:
+      outgoing:
+        produto-nome-out:
+          connector: smallrye-kafka
+          topic: produto-nome
+          value:
+            serializer: org.apache.kafka.common.serialization.StringSerializer
+
+      incoming:
+        produto-nome-in:
+          connector: smallrye-kafka
+          topic: produto-nome
+          value:
+            deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+
+# =========================================================
+# PROFILE: PROD (DOCKER / DOCKER-COMPOSE)
+# =========================================================
+'%prod':
+   quarkus:
+     datasource:
+       jdbc:
+         url: jdbc:postgresql://postgres:5432/produto-kfka
+
+       reactive:
+         url: postgresql://postgres:5432/produto-kfka
+         username: kfka_produto
+         password: kfka-produto123
+
+     flyway:
+       migrate-at-start: true
+
+   kafka:
+     bootstrap:
+        servers: kafka:9092
+
+   mp:
+     messaging:
+        outgoing:
+          produto-nome-out:
+            connector: smallrye-kafka
+            topic: produto-nome
+            value:
+              serializer: org.apache.kafka.common.serialization.StringSerializer
+
+        incoming:
+          produto-nome-in:
+            connector: smallrye-kafka
+            topic: produto-nome
+            value:
+              deserializer: org.apache.kafka.common.serialization.StringDeserializer
+

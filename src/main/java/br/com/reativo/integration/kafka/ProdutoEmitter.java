@@ -4,6 +4,7 @@ package br.com.reativo.integration.kafka;
 import br.com.reativo.modelo.Produto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.eclipse.microprofile.reactive.messaging.Channel;
@@ -21,9 +22,14 @@ public class ProdutoEmitter {
     @Inject @Channel("produto-nome-out")
     Emitter<String> emitter;
 
-    public void sendKafkaData( String message){
+    public Uni<Void> sendKafkaData(String message){
             LOGGER.info("Enviando uma msg ao kafka: {}", message);
-            emitter.send(message);
+
+        return Uni.createFrom()
+                .completionStage(emitter.send(message))
+                .onFailure()
+                .invoke(ex -> LOGGER.error("Erro Kafka", ex))
+                .replaceWithVoid();
     }
 
     public void sendMsgToKafkaAboutProduct(Produto produto){

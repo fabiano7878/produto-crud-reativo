@@ -1,4 +1,4 @@
 package br.com.reativo.modelo;
 
-public record Produto(long id, String nome) {
+public record Produto(Long id, String nome) {
 }
