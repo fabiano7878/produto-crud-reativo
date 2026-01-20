@@ -120,18 +120,18 @@ public class ProdutoService {
     }
 
     public Uni<Response> update(Long id, Produto produto) {
-
         return produtoRepository.findById(pgPool, id)
                 .onItem().transformToUni(produtoEncontrado -> {
+                    LOGGER.info("Produto encontrado: {}, id: {}", produtoEncontrado, id);
                     if (produtoEncontrado == null) {
                         return Uni.createFrom()
-                                .item(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Produto de id: &s não encontrado!".formatted(id)).build());
+                                .item(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Produto de id: %s não encontrado!".formatted(id)).build());
                     }
 
                     return produtoRepository.updateById(pgPool, id, produto)
                             .onItem().transform(updated ->
                                     updated
-                                    ? Response.ok().entity(String.format("Produto de id:%s update com sucesso!", id)).build()
+                                    ? Response.ok().entity(String.format("Produto de id: %s update com sucesso!", id)).build()
                                     : Response.status(Response.Status.BAD_REQUEST).entity(String.format("Update não consistiu os dados em Produto!", id)).build()
                             );
                 })

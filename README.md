@@ -1,5 +1,5 @@
 # produto-crud-reativo
-Aplicação Java 21, Gradle, Quarkus reativo e integração com kafka, postgres 
+Aplicação Java 21, Gradle, Quarkus reativo e integração com kafka, postgres, JUnit-5, Mockito,
 
 # how to run
 
@@ -38,7 +38,7 @@ curl --location 'localhost:8080/produto'
 curl --location 'localhost:8080/produto/20'
 
  - update product: (PATCH)
-curl --location --request PATCH 'localhost:8080/produto/21' \
+curl --location --request PATCH 'localhost:8080/produto/update/21' \
   --header 'Content-Type: application/json' \
   --data '{
   "nome":""

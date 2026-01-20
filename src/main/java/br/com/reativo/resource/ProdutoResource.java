@@ -13,8 +13,6 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-import java.util.Objects;
-
 @Path("/produto")
 public class ProdutoResource {
 
@@ -61,7 +59,7 @@ public class ProdutoResource {
     }
 
     @PATCH
-    @Path("{/update/id}")
+    @Path("/update/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Uni<Response>  updateById(@PathParam("id") Long id, @Nonnull Produto produto){
         return produtoService.update(id, produto);

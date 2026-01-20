@@ -20,8 +20,14 @@ dependencies {
     implementation 'io.quarkus:quarkus-flyway'
 
     testImplementation 'io.quarkus:quarkus-junit5'
+    testImplementation 'io.quarkus:quarkus-junit5-mockito'
     testImplementation 'io.rest-assured:rest-assured'
     testImplementation 'io.quarkus:quarkus-jdbc-h2'
+    testImplementation 'org.mockito:mockito-core'
+    testImplementation 'org.mockito:mockito-junit-jupiter'
+    testImplementation "org.testcontainers:postgresql"
+    testImplementation "org.testcontainers:kafka"
+    testImplementation "org.testcontainers:junit-jupiter"
 }
 
 group 'br.com.reativo'

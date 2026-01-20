@@ -11,7 +11,7 @@ services:
     ports:
       - "5432:5432"
   app:
-    image: produto-crud-reativo:1.0
+    image: produto-crud-reativo:1-SNAPSHOT
     depends_on:
       - postgres
       - kafka
